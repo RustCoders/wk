@@ -1,4 +1,3 @@
-
 use clap::{Parser, Subcommand};
 
 #[derive(Parser)]
@@ -11,7 +10,11 @@ struct Cli {
     command: Option<Commands>,
 }
 
+
 #[derive(Subcommand)]
+
+// This took time to figure out.  It goes here for derive.
+#[command(arg_required_else_help = true)]
 enum Commands {
     /// adds a task
     Add {
@@ -23,6 +26,7 @@ enum Commands {
         
     },
     /// shows tasks today including current
+    #[command(arg_required_else_help = true)]
     Today {
 
     },
@@ -49,10 +53,8 @@ fn main() {
         },
         Some(Commands::Today {}) => {
             println!("Today you're doing great!");
-        }
-        None => {
-            println!("No command found!");
-        }
+        },
+        None => {}
     }
 
     // Continued program logic goes here...
